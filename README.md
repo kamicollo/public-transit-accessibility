@@ -36,3 +36,5 @@ In order to reproduce and run the tool, several components are required. To make
 
 ## Authors
 
+The project team comprised Alexander Li, Mengyang Liu, Aurimas Racas, Tejas Santanam, Junaid Syed and Przemek Zientala.
+
