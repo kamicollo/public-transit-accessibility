@@ -53,7 +53,7 @@ In case you use this option, note that the GTFS feeds obtained may cover differe
 ### Visualization tool
 
 Our Visualization tool is developed mainly using Vue.JS.
-
+```
 frontend
     ├── README.md
     ├── babel.config.js
@@ -64,7 +64,8 @@ frontend
     ├── public
     ├── src
     └── yarn.lock
-
+```
+```
 cse6242_backend
 ├── README.md
 ├── config.ini
@@ -83,7 +84,7 @@ cse6242_backend
     ├── data_processing
     ├── isochrones.py
     └── sql_functions
-
+```
 
 After enter the frontend directory, run the following command to install all dependencies.
 ```
