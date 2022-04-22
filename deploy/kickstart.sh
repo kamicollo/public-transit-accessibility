@@ -24,6 +24,9 @@ BE_CONFIG_PATH="/code/config"
 NGINX_CONFIG_PATH="/etc/nginx/nginx.conf"
 NETWORK_NAME="bridge"
 
+# CREATE NETWORK
+docker network create $NETWORK_NAME
+
 # RUN BE SERVER AND FE SERVER
 docker run -d --network=bridge --name be -v "$CONFIG_PATH:$BE_CONFIG_PATH" pta-be
 docker run -d --network=bridge --name fe -p 80:80 -v "$CONFIG_PATH/nginx.conf:$NGINX_CONFIG_PATH" pta-fe
