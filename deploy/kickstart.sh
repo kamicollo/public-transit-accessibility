@@ -28,16 +28,15 @@ NETWORK_NAME="bridge"
 docker run -d --network=bridge --name be -v "$CONFIG_PATH:$BE_CONFIG_PATH" pta-be
 docker run -d --network=bridge --name fe -p 80:80 -v "$CONFIG_PATH/nginx.conf:$NGINX_CONFIG_PATH" pta-fe
 
-
 mode=$1 # first argument, run like 'bash kickstart.sh faster'
 
-if [ "$mode" = "faster" ]; then
-    # RUN faster version of OTP Server
-    printf "${COLOR_LIGHT_GREEN}Running faster version of OTP Server...${COLOR_NC}"
+if [ "$mode" = "fast" ]; then
+    # RUN prepackaged version of OTP Server    
+    docker run -d --network=bridge --name otp pta-otp-prepackaged
 elif [ "$mode" = "complete" ]; then
-    # RUN complete version of OTP Server
-    printf "${COLOR_LIGHT_RED}RUN complete version of OTP Server...${COLOR_NC}"
+    # RUN prepackaged version of OTP Server    
+    docker run -d --network=bridge --name otp pta-otp-complete
 else
-    # RUN default version of OTP Server
-    printf "${COLOR_LIGHT_BLUE}RUN default version of OTP Server...${COLOR_NC}"
+    # Exit with a notification
+    printf "${COLOR_LIGHT_RED}Unknown mode - run with parameter 'fast' or 'complete' (e.g. ./kickstart.sh 'fast')${COLOR_NC}"
 fi
