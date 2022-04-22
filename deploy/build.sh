@@ -54,6 +54,7 @@ mode=$1 # first argument, run like 'bash build.sh fast'
 # Build Docker Image
 docker build -t pta-fe ./frontend
 docker build -t pta-be ./backend
+docker build -t pta-jupyter deploy/backend/ --file deploy/backend/jupyter.Dockerfile
 
 if [ "$mode" = "fast" ]; then
     # RUN faster version of OTP Server
