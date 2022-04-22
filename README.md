@@ -8,114 +8,40 @@ In order to reproduce and run the tool, several components are required. To make
 
 ## Installation
 
-### Docker desktop
+### Prerequisites
 
-To proceed, you will need Docker environment on your machine. The instruction vary depending on your operating system. We recommend following the [official instructions](https://docs.docker.com/desktop/) to install it.
+#### Docker desktop
 
-### Postgres database
+You will need Docker environment on your machine. The instruction vary depending on your operating system. We recommend following the [official instructions](https://docs.docker.com/desktop/) to install it.
 
-[TBD - Przemek]
+#### Node package manager
 
-### Open Trip Planner server
+You will also need Node.js and its package manager. Similarly to Docker, we recommend following the [official instructions](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) corresponding to your operating system.
 
-#### Pre-packaged version
+### Building Docker images
 
-The second required component is an [Open Trip Planner](http://docs.opentripplanner.org/en/v1.5.0/) (OTP) server which is used to generate isochrones (catchment areas) for all points of interest used in the analysis. 
+We provide an easy and convenient way to build Docker images for this application. All you need to do is run `build.sh` script that is within in the `/deploy` directory with parameter `fast` or `complete` (you may need to `chmod +x build.sh` to make the file executable). This script creates 5 separate Docker containers:
+ - pta-be - contains the backend API of the application
+ - pta-fe - contains the frontend of the application
+ - pta-otp-[prepackaged|complete] - [Open Trip Planner](http://docs.opentripplanner.org/en/v1.5.0/) server which is used to generate isochrones (catchment areas).
+  - pta-db - PostgreSQL database container.
+  - pta-analysis - Jupyter notebook environment for data processing and post-hoc analysis.
 
-We provide a pre-packaged version of the OTP server which uses pre-built graphs that we generated in the process. To build this OTP server, navigate to `DockerFiles` directory and run the following command.
+We highly recommend using `build.sh fast` - this will use pre-packaged database backup for the PostgreSQL container and pre-packaged graph datasets for the OTP container. 
 
-`docker build -t otp-server-packaged:cse6242 - < OTP-packaged.Dockerfile`
+Using `build.sh complete` will instead create only an empty PostgreSQL database and will build the OTP container by downloading latest available GTFS information. The `build.sh complete` process may take up to an hour and will require execution of manual data-processing steps as described below. 
 
-#### Complete build
+Both `build.sh fast` and `build.sh complete` will download large amounts of data, a stable and fast internet connection is recommended.
 
-Alternatively, we provide a DockerFile that includes all the instructions required to:
- - install the OTP server
- - download General Transit Feed Specification (GTFS) data feeds used in the analysis
- - build the OTP Graphs using GTFS data and corresponding street networks downloaded from OSM
- - serve the OTP server on the 8062 port.
+### Re-creating data processing steps
 
-Note that building this Docker image may take up to 1 hour. To build it, navigate to `DockerFiles` directory and run the following command.
+Skip to the next section if you used `build.sh fast` previously.
 
-`docker build -t otp-server-complete:cse6242 - < OTP-full.Dockerfile`
-
-In case you use this option, note that the GTFS feeds obtained may cover different dates than the pre-packaged versions, and you may need to adjust the associated configuration (covered in the steps below).
-
-
-
-### Data processing (option 1)
-
-[TBD - Przemek (if he gets to it)]
-
-### Data processing (option 2)
-
-[TBD - Aurimas / Junaid]
-
-### Visualization tool
-
-Our Visualization tool is developed mainly using Vue.JS.
-```
-frontend
-    ├── README.md
-    ├── babel.config.js
-    ├── dist
-    ├── node_modules
-    ├── package-lock.json
-    ├── package.json
-    ├── public
-    ├── src
-    └── yarn.lock
-```
-```
-cse6242_backend
-├── README.md
-├── config.ini
-├── otp
-│   ├── Dockerfile
-│   ├── README.md
-│   └── isochrones.ipynb
-├── requirements.txt
-└── src
-    ├── __init__.py
-    ├── __pycache__
-    ├── accessibility_analysis
-    ├── analysis.ipynb
-    ├── api
-    ├── basic_pgsql.ipynb
-    ├── data_processing
-    ├── isochrones.py
-    └── sql_functions
-```
-
-After enter the frontend directory, run the following command to install all dependencies.
-```
-npm install
-```
-For development mode, just run
-```
-npm run servec
-```
-For production mode, run
-```
-npm run build
-```
-
-Due to CORS restrictions, the visualization tool requires NGINX to connect to the backend. For NGINX, please install it from the official NGINX website. And adjust the configuration file `nginx.conf` like our sample file deploy/config/nginx.conf.
-
-For backend, we mainly use fastAPI to serve the API service. You also need to install other dependencies, the best way is creating a virtual environment with miniconda and installing all dependencies with the following code.
-
-```
-conda install -y psycopg2 sqlalchemy geoalchemy2 shapely geopandas uvicorn
-pip install fastapi orjson bson h3
-```
-Then, go to the src/api directory and run the following command to install all dependencies.
-```
-uvicorn serve:app --reload --port 8080
-```
 ## Execution
 
 ### Running the tool
 
-[TBD - Aurimas]
+To run the tool, simply navigate to the `deploy` directory and run `kickstart.sh fast` or `kickstart.sh complete` (depending on the choice you made in the previous sesssion). You can then access the interactive visualization tool at http://localhost/.
 
 ### Key features
 
