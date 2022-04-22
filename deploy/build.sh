@@ -6,6 +6,8 @@ BE_SRC_PATH="../backend/"
 FE_DST_PATH="./frontend/src"
 BE_DST_PATH="./backend/src"
 
+OTP_BUILD_PATH="otpserver"
+
 BASE_PATH=`pwd`
 
 # Build Frontend
@@ -28,6 +30,22 @@ echo "Copying files..."
 
 rm -rf "$BE_DST_PATH/.git"
 
+mode=$1 # first argument, run like 'bash build.sh fast'
+
 # Build Docker Image
 docker build -t pta-fe ./frontend
 docker build -t pta-be ./backend
+
+if [ "$mode" = "fast" ]; then
+    # RUN faster version of OTP Server
+    printf "${COLOR_LIGHT_GREEN}Building Docker images...${COLOR_NC}"
+    docker build -t pta-otp-packaged  - < $BASE_PATH/$OTP_BUILD_PATH/OTP-packaged.Dockerfile
+elif [ "$mode" = "complete" ]; then
+    # RUN complete version of OTP Server
+    printf "${COLOR_LIGHT_BLUE}Building Docker images - this will take a while...${COLOR_NC}"
+    printf "${COLOR_LIGHT_BLUE}Make sure to follow data generation instructions afterwards...${COLOR_NC}"
+    docker build -t pta-otp-complete  - < $BASE_PATH/$OTP_BUILD_PATH/OTP-complete.Dockerfile
+else
+    # Exit with a notification
+    printf "${COLOR_LIGHT_RED}Unknown mode - run with parameter 'fast' or 'complete' (e.g. ./build.sh 'fast')${COLOR_NC}"
+fi
