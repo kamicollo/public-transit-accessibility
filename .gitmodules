@@ -1,0 +1,6 @@
+[submodule "cse6242_backend"]
+	path = backend
+	url = git@github.com:slazien/cse6242_backend.git
+[submodule "cse6242-fe"]
+	path = frontend
+	url = https://github.com/dreamyang-liu/cse6242-fe
