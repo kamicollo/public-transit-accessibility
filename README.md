@@ -52,8 +52,64 @@ In case you use this option, note that the GTFS feeds obtained may cover differe
 
 ### Visualization tool
 
-[TBD - Mengyang]
+Our Visualization tool is developed mainly using Vue.JS.
 
+frontend
+    ├── README.md
+    ├── babel.config.js
+    ├── dist
+    ├── node_modules
+    ├── package-lock.json
+    ├── package.json
+    ├── public
+    ├── src
+    └── yarn.lock
+
+cse6242_backend
+├── README.md
+├── config.ini
+├── otp
+│   ├── Dockerfile
+│   ├── README.md
+│   └── isochrones.ipynb
+├── requirements.txt
+└── src
+    ├── __init__.py
+    ├── __pycache__
+    ├── accessibility_analysis
+    ├── analysis.ipynb
+    ├── api
+    ├── basic_pgsql.ipynb
+    ├── data_processing
+    ├── isochrones.py
+    └── sql_functions
+
+
+After enter the frontend directory, run the following command to install all dependencies.
+```
+npm install
+```
+For development mode, just run
+```
+npm run servec
+```
+For production mode, run
+```
+npm run build
+```
+
+Due to CORS restrictions, the visualization tool requires NGINX to connect to the backend. For NGINX, please install it from the official NGINX website. And adjust the configuration file `nginx.conf` like our sample file deploy/config/nginx.conf.
+
+For backend, we mainly use fastAPI to serve the API service. You also need to install other dependencies, the best way is creating a virtual environment with miniconda and installing all dependencies with the following code.
+
+```
+conda install -y psycopg2 sqlalchemy geoalchemy2 shapely geopandas uvicorn
+pip install fastapi orjson bson h3
+```
+Then, go to the src/api directory and run the following command to install all dependencies.
+```
+uvicorn serve:app --reload --port 8080
+```
 ## Execution
 
 ### Running the tool
