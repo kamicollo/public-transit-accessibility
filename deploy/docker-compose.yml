@@ -1,0 +1,30 @@
+version: "3.9"  # This file has not been tested, DON'T USE IT!
+services:
+  nginx_frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    links:
+      - backend
+  backend:
+    build: ./backend
+    depends_on:
+      - postgres
+      - redis
+      - otpserver
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=mydb
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+    restart: always
+  otpserver:
+    build: ./otpserver
+    depends_on:
+      - redis
+      - postgres
+  redis:
+    image: redis
