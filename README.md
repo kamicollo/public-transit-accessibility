@@ -8,57 +8,40 @@ In order to reproduce and run the tool, several components are required. To make
 
 ## Installation
 
-### Docker desktop
+### Prerequisites
 
-To proceed, you will need Docker environment on your machine. The instruction vary depending on your operating system. We recommend following the [official instructions](https://docs.docker.com/desktop/) to install it.
+#### Docker desktop
 
-### Postgres database
+You will need Docker environment on your machine. The instruction vary depending on your operating system. We recommend following the [official instructions](https://docs.docker.com/desktop/) to install it.
 
-[TBD - Przemek]
+#### Node package manager
 
-### Open Trip Planner server
+You will also need Node.js and its package manager. Similarly to Docker, we recommend following the [official instructions](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) corresponding to your operating system.
 
-#### Pre-packaged version
+### Building Docker images
 
-The second required component is an [Open Trip Planner](http://docs.opentripplanner.org/en/v1.5.0/) (OTP) server which is used to generate isochrones (catchment areas) for all points of interest used in the analysis. 
+We provide an easy and convenient way to build Docker images for this application. All you need to do is run `build.sh` script that is within in the `/deploy` directory with parameter `fast` or `complete` (you may need to `chmod +x build.sh` to make the file executable). This script creates 5 separate Docker containers:
+ - pta-be - contains the backend API of the application
+ - pta-fe - contains the frontend of the application
+ - pta-otp-[prepackaged|complete] - [Open Trip Planner](http://docs.opentripplanner.org/en/v1.5.0/) server which is used to generate isochrones (catchment areas).
+  - pta-db - PostgreSQL database container.
+  - pta-analysis - Jupyter notebook environment for data processing and post-hoc analysis.
 
-We provide a pre-packaged version of the OTP server which uses pre-built graphs that we generated in the process. To build this OTP server, navigate to `DockerFiles` directory and run the following command.
+We highly recommend using `build.sh fast` - this will use pre-packaged database backup for the PostgreSQL container and pre-packaged graph datasets for the OTP container. 
 
-`docker build -t otp-server-packaged:cse6242 - < OTP-packaged.Dockerfile`
+Using `build.sh complete` will instead create only an empty PostgreSQL database and will build the OTP container by downloading latest available GTFS information. The `build.sh complete` process may take up to an hour and will require execution of manual data-processing steps as described below. 
 
-#### Complete build
+Both `build.sh fast` and `build.sh complete` will download large amounts of data, a stable and fast internet connection is recommended.
 
-Alternatively, we provide a DockerFile that includes all the instructions required to:
- - install the OTP server
- - download General Transit Feed Specification (GTFS) data feeds used in the analysis
- - build the OTP Graphs using GTFS data and corresponding street networks downloaded from OSM
- - serve the OTP server on the 8062 port.
+### Re-creating data processing steps
 
-Note that building this Docker image may take up to 1 hour. To build it, navigate to `DockerFiles` directory and run the following command.
-
-`docker build -t otp-server-complete:cse6242 - < OTP-full.Dockerfile`
-
-In case you use this option, note that the GTFS feeds obtained may cover different dates than the pre-packaged versions, and you may need to adjust the associated configuration (covered in the steps below).
-
-
-
-### Data processing (option 1)
-
-[TBD - Przemek (if he gets to it)]
-
-### Data processing (option 2)
-
-[TBD - Aurimas / Junaid]
-
-### Visualization tool
-
-[TBD - Mengyang]
+Skip to the next section if you used `build.sh fast` previously.
 
 ## Execution
 
 ### Running the tool
 
-[TBD - Aurimas]
+To run the tool, simply navigate to the `deploy` directory and run `kickstart.sh fast` or `kickstart.sh complete` (depending on the choice you made in the previous sesssion). You can then access the interactive visualization tool at http://localhost/.
 
 ### Key features
 
