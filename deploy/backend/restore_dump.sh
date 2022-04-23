@@ -1,5 +1,4 @@
-#create the database anyway
-createdb --owner=postgres main
+
 
 if [ "$DO_RESTORE" = true ] ; then \
     echo "restoring from dump..." \
@@ -8,5 +7,6 @@ if [ "$DO_RESTORE" = true ] ; then \
     ; \
     else \
     echo "not restoring from dump" \
+    && createdb --owner=postgres main \
     ; \
     fi
