@@ -22,27 +22,26 @@ CURRENT_PATH=`pwd`
 CONFIG_PATH="$CURRENT_PATH/config"
 BE_CONFIG_PATH="/code/config"
 NGINX_CONFIG_PATH="/etc/nginx/nginx.conf"
-NETWORK_NAME="bridge"
+NETWORK_NAME="cse6242"
 
 # CREATE NETWORK
 docker network create $NETWORK_NAME
 
-# RUN BE SERVER AND FE SERVER
-docker run -d --network=bridge --name be -v "$CONFIG_PATH:$BE_CONFIG_PATH" pta-be
-docker run -d --network=bridge --name fe -p 80:80 -v "$CONFIG_PATH/nginx.conf:$NGINX_CONFIG_PATH" pta-fe
-
-# RUN postgres
-docker run -d --network=bridge --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=bestpasswordever123 pta-postgres
-
 mode=$1 # first argument, run like 'bash kickstart.sh faster'
 
 if [ "$mode" = "fast" ]; then
+    # RUN postgres
+    docker run -d --network=$NETWORK_NAME --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=ThisisADockerPassword pta-postgres-full
     # RUN prepackaged version of OTP Server
-    docker run -d --network=bridge --name otp pta-otp-prepackaged
+    docker run -d --network=$NETWORK_NAME --name otp -p 8062:8062 pta-otp-prepackaged
 elif [ "$mode" = "complete" ]; then
-    # RUN prepackaged version of OTP Server    
-    docker run -d --network=bridge --name otp pta-otp-complete
+    #OTP and postgress should be running already - only inform the user
+    printf "${COLOR_LIGHT_RED}This script assumes that pta-otp-complete and pta-postgres-empty are already running. Restart them manually if previously they were stopped${COLOR_NC}"
 else
     # Exit with a notification
     printf "${COLOR_LIGHT_RED}Unknown mode - run with parameter 'fast' or 'complete' (e.g. ./kickstart.sh 'fast')${COLOR_NC}"
 fi
+
+# RUN BE SERVER AND FE SERVER
+docker run -d --network=$NETWORK_NAME --name be -v "$CONFIG_PATH:$BE_CONFIG_PATH" pta-be
+docker run -d --network=$NETWORK_NAME --name fe -p 80:80 -v "$CONFIG_PATH/nginx.conf:$NGINX_CONFIG_PATH" pta-fe
