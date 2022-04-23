@@ -85,7 +85,7 @@ Technical details of the tool development and methodology can be displayed in a 
 
 In case you would like to reproduce the machine learning analysis described in our report, you will need to start the `jupyter` container. If you used `./kickstart-processing` previously, it should be already running. If not, run `./kickstart-jupyter.sh` in the `/deploy` directory.
 
-The jupyter interface is then accessible at http://localhost:8888. The analysis notebooks are available at `/src/accessibility_analysis` folder.
+The jupyter interface is then accessible at http://localhost:8888. The analysis notebooks are available at `/backend/src/accessibility_analysis` folder.
 
 ## Authors
 
