@@ -46,7 +46,7 @@ Then:
 1. Start the OTP, database and Jupyter notebook Docker containers using `kickstart-processing.sh` script in the `/deploy` directory.
 2. Open your browser at `http://localhost:8888` - you should see Jupyter server interface.
 3. Open your browser at `http://localhost:8062` - you should see OTP server interface. Note that OTP docker container may take up to 5 minutes to fully start.
-4. Navigate to /src/tests/ and run `test_otp.ipynb` and `test_db.ipynb` notebooks to confirm connectivity to OTP and database containers.
+4. Navigate to backend/src/tests/ and run `test_otp.ipynb` and `test_db.ipynb` notebooks to confirm connectivity to OTP and database containers.
 5. [JUNAID TBD - where to store the data from Safegraph?]
 6. Run the following notebooks in the following order:
    1. [TBD]
