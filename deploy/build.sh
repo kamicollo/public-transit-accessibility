@@ -25,6 +25,7 @@ BE_SRC_PATH="../backend/"
 FE_DST_PATH="./frontend/src"
 BE_DST_PATH="./backend/src"
 
+OTP_SRC_PATH="../backend/otp"
 OTP_BUILD_PATH="otpserver"
 
 BASE_PATH=`pwd`
@@ -46,6 +47,9 @@ echo "Cleaning up..."
 cp -r "$FE_SRC_PATH" "$FE_DST_PATH"
 cp -r "$BE_SRC_PATH" "$BE_DST_PATH"
 echo "Copying files..."
+
+#copy latest OTP dockerfiles to build directory
+cp $OTP_SRC_PATH/OTP-*.Dockerfile $BASE_PATH/$OTP_BUILD_PATH
 
 rm -rf "$BE_DST_PATH/.git"
 
