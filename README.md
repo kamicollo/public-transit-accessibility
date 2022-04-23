@@ -72,7 +72,7 @@ You're done!
 
 ### Running the tool
 
-To run the tool, simply navigate to the `deploy` directory and run `kickstart.sh fast` or `kickstart.sh complete` (depending on the choice you made in the previous session). If you previously stopped any of the running docker containers, make sure to restart them.
+To run the tool, simply navigate to the `deploy` directory and run `kickstart.sh fast` or `kickstart.sh complete` (depending on the choice you made in the previous session). If you previously stopped any of the running docker containers, make sure to restart them. If `kickstart.sh fast` is run, the database import may take a while. Please be patient and monitor the Docker container logs before trying the website.
 
 You can then access the interactive visualization tool at http://localhost/.
 
