@@ -25,15 +25,16 @@ NGINX_CONFIG_PATH="/etc/nginx/nginx.conf"
 NETWORK_NAME="cse6242"
 
 # CREATE NETWORK
-docker network create $NETWORK_NAME
+docker network inspect $NETWORK_NAME >/dev/null 2>&1 || \
+    docker network create --driver bridge $NETWORK_NAME
 
-mode=$1 # first argument, run like 'bash kickstart.sh faster'
+mode=$1 # first argument, run like 'bash kickstart.sh fast'
 
 if [ "$mode" = "fast" ]; then
     # RUN postgres
     docker run -d --network=$NETWORK_NAME --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=ThisisADockerPassword pta-postgres-full
     # RUN prepackaged version of OTP Server
-    docker run -d --network=$NETWORK_NAME --name otp -p 8062:8062 pta-otp-prepackaged
+    #docker run -d --network=$NETWORK_NAME --name otp -p 8062:8062 pta-otp-packaged
 elif [ "$mode" = "complete" ]; then
     #OTP and postgress should be running already - only inform the user
     printf "${COLOR_LIGHT_RED}This script assumes that pta-otp-complete and pta-postgres-empty are already running. Restart them manually if previously they were stopped${COLOR_NC}"
