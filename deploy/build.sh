@@ -55,6 +55,20 @@ rm -rf "$BE_DST_PATH/.git"
 
 mode=$1 # first argument, run like 'bash build.sh fast'
 
+# REMOVE OLD DOCKER CONTAINERS
+docker container rm -f fe
+docker container rm -f be
+docker container rm -f db
+docker container rm -f otp
+
+# Rremove old images
+docker image rm pta-fe
+docker image rm pta-fe
+docker image rm pta-otp-packaged
+docker image rm pta-postgres-full
+docker image rm pta-otp-complete
+docker image rm pta-postgres-empty
+
 # Build Docker Images
 docker build -t pta-fe ./frontend
 docker build -t pta-be ./backend --file ./backend/Dockerfile

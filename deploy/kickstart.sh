@@ -28,6 +28,12 @@ NETWORK_NAME="cse6242"
 docker network inspect $NETWORK_NAME >/dev/null 2>&1 || \
     docker network create --driver bridge $NETWORK_NAME
 
+# REMOVE OLD DOCKER CONTAINERS
+docker container rm -f fe
+docker container rm -f be
+docker container rm -f db
+docker container rm -f otp
+
 mode=$1 # first argument, run like 'bash kickstart.sh fast'
 
 if [ "$mode" = "fast" ]; then
