@@ -65,19 +65,31 @@ Then:
 
 ### Running the tool
 
-To run the tool, simply navigate to the `deploy` directory and run `kickstart.sh fast` or `kickstart.sh complete` (depending on the choice you made in the previous sesssion). If you previously stopped any of the running docker containers, make sure to restart them.
+To run the tool, simply navigate to the `deploy` directory and run `kickstart.sh fast` or `kickstart.sh complete` (depending on the choice you made in the previous session). If you previously stopped any of the running docker containers, make sure to restart them.
 
 You can then access the interactive visualization tool at http://localhost/.
 
 ### Key features
 
-[TBD - Tejas input]
+To change the city analyzed, select the desired city in the dropdown in the top left. The change will take effect after a few seconds. The default city is Atlanta.
+
+To change the POI visualized, click on the control panel and select the desired POI type. The change will take effect after a few seconds. The default POI type is vaccination centers. The time of day for transit accessibility and desired demographic factor can also be changed in the control panel in a similar manner. The map opacity slider changes the user's ability to see through the hexagons on the map.
+
+In order to view 30-minutes transit isochrones for POIs, set the Interaction type to Explore. This is the default interaction when the page is first loaded. The isochrones will be displayed as a green polygon when the dot for a POI on the map is clicked. While the isochrone is clicked, the doughnut graph for catchment area statistics will become active and show the demographic breakdown inside the isochrone based on the selected demographic factor in the control panel. The isochrone can be removed by clicking on the map off of the isochrone or by clicking the 'Clear visible catchments' button in the control panel.
+
+To add POIs, set the Interaction type to Add New POIs. Then, click on the map wherever you would like to add a new POI. A dot in a different color from the existing POIs will appear. After a few seconds, the accessibility metrics in the City Level Statistics chart will change correspondingly.
+
+To remove POIs, set the Interaction type to Remove POIs. Then, click on the dot for any POI on the map. The clicked dot will disappear. After a few seconds, the accessibility metrics in the City Level Statistics chart will change correspondingly.
+
+Hovering over the map will bring up a tooltip for each H3 hexagon that shows the demographic breakdown inside the hexagon based on the selected demographic factor in the control panel. The hexagons are colored by accessibility score, with lighter colored hexagons being more accessible to the selected POI type.
+
+Technical details of the tool development and methodology can be displayed in a pop-up by clicking on the methodology details button.
 
 ### Analysis
 
 In case you would like to reproduce the machine learning analysis described in our report, you will need to start the `jupyter` container. If you used `./kickstart-processing` previously, it should be already running. If not, run `./kickstart-jupyter.sh` in the `/deploy` directory.
 
-The jupyter interface is then accessible at http://localhost:8888. The analysis notebooks are available at `/src/accessibility_analysis` folder.
+The jupyter interface is then accessible at http://localhost:8888. The analysis notebooks are available in the `/backend/src/accessibility_analysis` folder.
 
 ## Authors
 
