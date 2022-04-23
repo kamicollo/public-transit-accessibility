@@ -57,9 +57,15 @@ Then:
    2. `backend/src/data_processing/pois/01_vaccination_centers.ipynb` (populates vaccination center data)
    3. `backend/src/data_processing/pois/02_osm_data.ipynb` (uses OSM Overpass API to retrieve other POI locations)
    4. [TBD - Demographics]
-   5. `backend/src/data_processing/pois/03_isochrones.ipynb` (generates catchment areas using OTP server; make sure its container is running). If you prefer, you can also use `backend/src/data_processing/pois/03_isochrones_runner.py` that can be run as a script instead. Isochrone generation may take up to a few hours.
-   6. [TBD]
-   7. [TBD]
+   5. `backend/src/data_processing/sql/01. pois_h3_demographics.ipynb` (creates SQL functions and pre-computed tables)
+   6. `backend/src/data_processing/sql/02. catchments.ipynb` (creates SQL functions and pre-computed tables)
+   7. `backend/src/data_processing/sql/03. 2FSCA - step1.ipynb` (creates SQL functions and pre-computed tables)
+   8. `backend/src/data_processing/pois/03_isochrones.ipynb` (generates catchment areas using OTP server; make sure its container is running). If you prefer, you can also use `backend/src/data_processing/pois/03_isochrones_runner.py` that can be run as a script instead. Isochrone generation may take up to a few hours.
+   9. `backend/src/data_processing/sql/04. 2FSCA - step2.ipynb` (creates further precomputed tables and runs consistency checks)
+   10. `backend/src/data_processing/sql/05. adjustment_stats.ipynb` (SQL function definition and tests)
+   11. `backend/src/data_processing/sql/06. city_stats.ipynb` (SQL function definition and tests)
+
+You're done!
 
 ## Execution
 
