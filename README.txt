@@ -1,26 +1,31 @@
 The Ease and Equity of Point of Interest Accessibility via Public Transit in Major US Cities
 
-Description
+*** Description
 
 This README describes the steps required to reproduce and run the interactive visualization tool and associated analysis focused on understanding the ease and equity of point of interest accessibility via public transit in five major US cities. This tool was developed as a course project in Georgia Tech’s CSE6242 class Data and Visual Analytics. At the time this README was published, the tool is accessible for demo purposes at http://20.231.46.77/.
 
 In order to reproduce and run the tool, several components are required. To make it easier, most of them are packaged in Docker container environments. We recommend at least 16 GB RAM and 30GB disk space on the machine running the tool.
 
-Installation
+*** Installation
 
-Prerequisites
+** Prerequisites
 
-Docker desktop
+* Docker desktop
 
 You will need a Docker environment on your machine. The instruction vary depending on your operating system. We recommend following the official instructions to install it.
 
-Node package manager
+* Node package manager
 
 You will also need Node.js and its package manager. Similar to Docker, we recommend following the official instructions corresponding to your operating system.
 
-Building Docker images
+** Building Docker images
 
-We provide an easy and convenient way to build Docker images for this application. All you need to do is run the build.sh script that is within in the /deploy directory with parameter fast or complete (you may need to chmod +x build.sh to make the file executable). This script creates 5 separate Docker containers: - pta-be - contains the backend API of the application - pta-fe - contains the frontend of the application - pta-otp-[prepackaged|complete] - Open Trip Planner server which is used to generate isochrones (catchment areas). - pta-db - PostgreSQL database container. - pta-analysis - Jupyter notebook environment for data processing and post-hoc analysis.
+We provide an easy and convenient way to build Docker images for this application. All you need to do is run the build.sh script that is within in the /deploy directory with parameter fast or complete (you may need to chmod +x build.sh to make the file executable). This script creates 5 separate Docker containers: 
+    - pta-be - contains the backend API of the application 
+    - pta-fe - contains the frontend of the application 
+    - pta-otp-[prepackaged|complete] - Open Trip Planner server which is used to generate isochrones (catchment areas) 
+    - pta-db - PostgreSQL database container 
+    - pta-analysis - Jupyter notebook environment for data processing and post-hoc analysis
 
 We highly recommend using build.sh fast - this will use pre-packaged database backup for the PostgreSQL container and pre-packaged graph datasets for the OTP container.
 
@@ -28,7 +33,7 @@ Using build.sh complete will instead create only an empty PostgreSQL database an
 
 Both build.sh fast and build.sh complete will download large amounts of data, a stable and fast internet connection is recommended.
 
-Re-creating data processing steps
+** Re-creating data processing steps
 
 Skip to the next section if you used build.sh fast previously.
 
@@ -63,15 +68,15 @@ Then:
 
 You’re done!
 
-Execution
+*** Execution
 
-Running the tool
+** Running the tool
 
 To run the tool, simply navigate to the deploy directory and run kickstart.sh fast or kickstart.sh complete (depending on the choice you made in the previous session). If you previously stopped any of the running docker containers, make sure to restart them. If kickstart.sh fast is run, the database import may take a while. Please be patient and monitor the Docker container logs before trying the website.
 
 You can then access the interactive visualization tool at http://localhost/.
 
-Key features
+** Key features
 
 To change the city analyzed, select the desired city in the dropdown in the top left. The change will take effect after a few seconds. The default city is Atlanta.
 
@@ -87,12 +92,12 @@ Hovering over the map will bring up a tooltip for each H3 hexagon that shows the
 
 Technical details of the tool development and methodology can be displayed in a pop-up by clicking on the methodology details button.
 
-Analysis
+** Analysis
 
 In case you would like to reproduce the machine learning analysis described in our report, you will need to start the jupyter container. If you used ./kickstart-processing previously, it should be already running. If not, run ./kickstart-jupyter.sh in the /deploy directory.
 
 The jupyter interface is then accessible at http://localhost:8888. The analysis notebooks are available in the /backend/src/accessibility_analysis folder.
 
-Authors
+*** Authors
 
 The project team comprised Alexander Li, Mengyang Liu, Aurimas Racas, Tejas Santanam, Junaid Syed and Przemek Zientala.
