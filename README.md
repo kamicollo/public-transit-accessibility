@@ -37,19 +37,43 @@ Both `build.sh fast` and `build.sh complete` will download large amounts of data
 
 Skip to the next section if you used `build.sh fast` previously.
 
+If you used `build.sh complete`, you will now need to run individual notebooks that re-compute accessibility statistics and recreate the database structure.
+
+First, you will need to obtain [Open Census dataset from SafeGraph](https://docs.safegraph.com/docs/open-census-data). Please follow the instructions on the website and download 2019 5-year ACS and 2010-2019 Census Block Group geometries datasets.
+
+Then:
+
+1. Start the OTP, database and Jupyter notebook Docker containers using `kickstart-processing.sh` script in the `/deploy` directory.
+2. Open your browser at `http://localhost:8888` - you should see Jupyter server interface.
+3. Open your browser at `http://localhost:8062` - you should see OTP server interface. Note that OTP docker container may take up to 5 minutes to fully start.
+4. Navigate to /src/tests/ and run `test_otp.ipynb` and `test_db.ipynb` notebooks to confirm connectivity to OTP and database containers.
+5. [JUNAID TBD - where to store the data from Safegraph?]
+6. Run the following notebooks in the following order:
+   1. [TBD]
+   2. [TBD]
+   3. [TBD]
+   4. [TBD]
+   5. [TBD]
+   6. [TBD]
+   7. [TBD]
+
 ## Execution
 
 ### Running the tool
 
-To run the tool, simply navigate to the `deploy` directory and run `kickstart.sh fast` or `kickstart.sh complete` (depending on the choice you made in the previous sesssion). You can then access the interactive visualization tool at http://localhost/.
+To run the tool, simply navigate to the `deploy` directory and run `kickstart.sh fast` or `kickstart.sh complete` (depending on the choice you made in the previous sesssion). If you previously stopped any of the running docker containers, make sure to restart them.
+
+You can then access the interactive visualization tool at http://localhost/.
 
 ### Key features
 
-[TBD]
+[TBD - Tejas input]
 
 ### Analysis
 
-[TBD - Junaid & Alex]
+In case you would like to reproduce the machine learning analysis described in our report, you will need to start the `jupyter` container. If you used `./kickstart-processing` previously, it should be already running. If not, run `./kickstart-jupyter.sh` in the `/deploy` directory.
+
+The jupyter interface is then accessible at http://localhost:8888. The analysis notebooks are available at `/src/accessibility_analysis` folder.
 
 ## Authors
 
