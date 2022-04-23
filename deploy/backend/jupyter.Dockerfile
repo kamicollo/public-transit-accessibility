@@ -4,9 +4,6 @@ LABEL tag="jupyter"
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 
-WORKDIR /code
-COPY ./src /code/
-
 USER root
 
 RUN \
@@ -15,7 +12,10 @@ RUN \
  apt-get install -y gcc musl-dev && \
  apt-get install -y fiona
 
- RUN python3 -m pip install -r requirements.txt
+WORKDIR /code
+COPY ./src /code/
+
+RUN python3 -m pip install -r requirements.txt
 
 USER $NB_UID
 
