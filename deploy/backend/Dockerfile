@@ -3,6 +3,7 @@ LABEL author="mengyang"
 LABEL tag="backend"
 WORKDIR /code
 
+RUN apt update && apt install -y fiona
 RUN conda install -y psycopg2 sqlalchemy geoalchemy2 shapely geopandas uvicorn
 RUN pip install fastapi orjson bson h3 redis
 
