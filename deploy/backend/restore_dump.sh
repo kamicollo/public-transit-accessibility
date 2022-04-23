@@ -1,3 +1,6 @@
+#create the database anyway
+createdb --owner=postgres main
+
 if [ "$DO_RESTORE" = true ] ; then \
     echo "restoring from dump..." \
     && psql -c "CREATE DATABASE main;" \
