@@ -13,8 +13,9 @@ RUN \
  apt-get update && \
  apt-get install -y libpq-dev && \
  apt-get install -y gcc musl-dev && \
- apt-get install -y fiona && \
- python3 -m pip install -r requirements.txt
+ apt-get install -y fiona
+
+ RUN python3 -m pip install -r requirements.txt
 
 USER $NB_UID
 
