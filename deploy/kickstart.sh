@@ -31,12 +31,12 @@ docker network inspect $NETWORK_NAME >/dev/null 2>&1 || \
 # REMOVE OLD DOCKER CONTAINERS
 docker container rm -f fe
 docker container rm -f be
-docker container rm -f db
-docker container rm -f otp
 
 mode=$1 # first argument, run like 'bash kickstart.sh fast'
 
 if [ "$mode" = "fast" ]; then
+    docker container rm -f db
+    docker container rm -f otp
     # RUN postgres
     docker run -d --network=$NETWORK_NAME --name db -p 5432:5432 -e POSTGRES_PASSWORD=ThisisADockerPassword pta-postgres-full
     # RUN prepackaged version of OTP Server
