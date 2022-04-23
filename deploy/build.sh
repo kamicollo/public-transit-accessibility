@@ -60,13 +60,13 @@ if [ "$mode" = "fast" ]; then
     # RUN faster version of OTP Server and don't restore DB from dump
     printf "${COLOR_LIGHT_GREEN}Building Docker images...${COLOR_NC}"
     docker build -t pta-otp-packaged  - < $BASE_PATH/$OTP_BUILD_PATH/OTP-packaged.Dockerfile
-    docker build -t pta-postgres --build-arg do_restore=false -f ./backend/postgres.Dockerfile
+    docker build -t pta-postgres-empty ./backend --build-arg do_restore=false -f ./backend/postgres.Dockerfile
 elif [ "$mode" = "complete" ]; then
     # RUN complete version of OTP Server and restore DB from dump
     printf "${COLOR_LIGHT_BLUE}Building Docker images - this will take a while...${COLOR_NC}"
     printf "${COLOR_LIGHT_BLUE}Make sure to follow data generation instructions afterwards...${COLOR_NC}"
     docker build -t pta-otp-complete  - < $BASE_PATH/$OTP_BUILD_PATH/OTP-complete.Dockerfile
-    docker build -t pta-postgres --build-arg do_restore=true -f ./backend/postgres.Dockerfile
+    docker build -t pta-postgres-full ./backend --build-arg do_restore=true -f ./backend/postgres.Dockerfile
 else
     # Exit with a notification
     printf "${COLOR_LIGHT_RED}Unknown mode - run with parameter 'fast' or 'complete' (e.g. ./build.sh 'fast')${COLOR_NC}"
