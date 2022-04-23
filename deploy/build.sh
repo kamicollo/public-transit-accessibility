@@ -57,7 +57,7 @@ mode=$1 # first argument, run like 'bash build.sh fast'
 
 # Build Docker Images
 docker build -t pta-fe ./frontend
-docker build -t pta-be ./backend
+docker build -t pta-be ./backend --file ./backend/Dockerfile
 docker build -t pta-jupyter ./backend/ --file ./backend/jupyter.Dockerfile
 
 if [ "$mode" = "fast" ]; then
