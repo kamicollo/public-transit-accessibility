@@ -4,7 +4,7 @@ LABEL tag="backend"
 WORKDIR /code
 
 RUN conda install -y psycopg2 sqlalchemy geoalchemy2 shapely geopandas uvicorn
-RUN pip install fastapi orjson bson h3
+RUN pip install fastapi orjson bson h3 redis
 
 COPY ./src /code/
 
