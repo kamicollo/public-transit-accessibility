@@ -51,7 +51,7 @@ Then:
 4. Navigate to `/backend/src/tests/` and run the `test_otp.ipynb` and `test_db.ipynb` notebooks to confirm connectivity to OTP and database containers. If you are experiencing errors with the `test_otp.ipynb` notebook related to no transit data, you may need to adjust the OTP reference date defined in the file `backend/config/config.ini` (especially if you do this much later than in April 2022).
 5. Create a `backend/data` folder and store:
    1. Vaccination dataset downloaded previously (named as `vaccinating_provider_locations.csv`)
-   2. [JUNAID TBD - where to store the data from Safegraph?]
+   2. The extracted Safegraph data downloaded earlier
 6. Run the following notebooks in the following order:
    1. `backend/src/data_processing/cities/01. City info population.ipynb` (populates city boundaries and H3 grid)
    2. `backend/src/data_processing/pois/01_vaccination_centers.ipynb` (populates vaccination center data)
