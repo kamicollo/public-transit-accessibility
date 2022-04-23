@@ -12,15 +12,15 @@ In order to reproduce and run the tool, several components are required. To make
 
 #### Docker desktop
 
-You will need Docker environment on your machine. The instruction vary depending on your operating system. We recommend following the [official instructions](https://docs.docker.com/desktop/) to install it.
+You will need a Docker environment on your machine. The instruction vary depending on your operating system. We recommend following the [official instructions](https://docs.docker.com/desktop/) to install it.
 
 #### Node package manager
 
-You will also need Node.js and its package manager. Similarly to Docker, we recommend following the [official instructions](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) corresponding to your operating system.
+You will also need Node.js and its package manager. Similar to Docker, we recommend following the [official instructions](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) corresponding to your operating system.
 
 ### Building Docker images
 
-We provide an easy and convenient way to build Docker images for this application. All you need to do is run `build.sh` script that is within in the `/deploy` directory with parameter `fast` or `complete` (you may need to `chmod +x build.sh` to make the file executable). This script creates 5 separate Docker containers:
+We provide an easy and convenient way to build Docker images for this application. All you need to do is run the `build.sh` script that is within in the `/deploy` directory with parameter `fast` or `complete` (you may need to `chmod +x build.sh` to make the file executable). This script creates 5 separate Docker containers:
  - pta-be - contains the backend API of the application
  - pta-fe - contains the frontend of the application
  - pta-otp-[prepackaged|complete] - [Open Trip Planner](http://docs.opentripplanner.org/en/v1.5.0/) server which is used to generate isochrones (catchment areas).
@@ -45,10 +45,10 @@ Second, you will need to download vaccination center location information availa
 
 Then:
 
-1. Start the OTP, database and Jupyter notebook Docker containers using `kickstart-processing.sh` script in the `/deploy` directory.
-2. Open your browser at `http://localhost:8888` - you should see Jupyter server interface.
-3. Open your browser at `http://localhost:8062` - you should see OTP server interface. Note that OTP docker container may take up to 5 minutes to fully start.
-4. Navigate to `/backend/src/tests/` and run `test_otp.ipynb` and `test_db.ipynb` notebooks to confirm connectivity to OTP and database containers. If you are experiencing errors with `test_otp.ipynb` notebook related to no transit data, you may need to adjust the OTP reference date defined in the file `backend/config/config.ini` (especially if you do this much later than in April 2022).
+1. Start the OTP, database and Jupyter notebook Docker containers using the `kickstart-processing.sh` script in the `/deploy` directory.
+2. Open your browser at `http://localhost:8888` - you should see the Jupyter server interface.
+3. Open your browser at `http://localhost:8062` - you should see the OTP server interface. Note that OTP docker container may take up to 5 minutes to fully start.
+4. Navigate to `/backend/src/tests/` and run the `test_otp.ipynb` and `test_db.ipynb` notebooks to confirm connectivity to OTP and database containers. If you are experiencing errors with the `test_otp.ipynb` notebook related to no transit data, you may need to adjust the OTP reference date defined in the file `backend/config/config.ini` (especially if you do this much later than in April 2022).
 5. Create a `backend/data` folder and store:
    1. Vaccination dataset downloaded previously (named as `vaccinating_provider_locations.csv`)
    2. [JUNAID TBD - where to store the data from Safegraph?]
