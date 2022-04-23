@@ -48,7 +48,7 @@ Then:
 1. Start the OTP, database and Jupyter notebook Docker containers using `kickstart-processing.sh` script in the `/deploy` directory.
 2. Open your browser at `http://localhost:8888` - you should see Jupyter server interface.
 3. Open your browser at `http://localhost:8062` - you should see OTP server interface. Note that OTP docker container may take up to 5 minutes to fully start.
-4. Navigate to /src/tests/ and run `test_otp.ipynb` and `test_db.ipynb` notebooks to confirm connectivity to OTP and database containers. If you are experiencing errors with `test_otp.ipynb` notebook related to no transit data, you may need to adjust the OTP reference date defined in the file `backend/config/config.ini` (especially if you do this much later than in April 2022).
+4. Navigate to `/backend/src/tests/` and run `test_otp.ipynb` and `test_db.ipynb` notebooks to confirm connectivity to OTP and database containers. If you are experiencing errors with `test_otp.ipynb` notebook related to no transit data, you may need to adjust the OTP reference date defined in the file `backend/config/config.ini` (especially if you do this much later than in April 2022).
 5. Create a `backend/data` folder and store:
    1. Vaccination dataset downloaded previously (named as `vaccinating_provider_locations.csv`)
    2. [JUNAID TBD - where to store the data from Safegraph?]
