@@ -41,21 +41,31 @@ If you used `build.sh complete`, you will now need to run individual notebooks t
 
 First, you will need to obtain [Open Census dataset from SafeGraph](https://docs.safegraph.com/docs/open-census-data). Please follow the instructions on the website and download 2019 5-year ACS and 2010-2019 Census Block Group geometries datasets.
 
+Second, you will need to download vaccination center location information available at [CDC website](https://data.cdc.gov/Vaccinations/Vaccines-gov-COVID-19-vaccinating-provider-locatio/5jp2-pgaw).
+
 Then:
 
 1. Start the OTP, database and Jupyter notebook Docker containers using `kickstart-processing.sh` script in the `/deploy` directory.
 2. Open your browser at `http://localhost:8888` - you should see Jupyter server interface.
 3. Open your browser at `http://localhost:8062` - you should see OTP server interface. Note that OTP docker container may take up to 5 minutes to fully start.
-4. Navigate to backend/src/tests/ and run `test_otp.ipynb` and `test_db.ipynb` notebooks to confirm connectivity to OTP and database containers.
-5. [JUNAID TBD - where to store the data from Safegraph?]
+4. Navigate to /src/tests/ and run `test_otp.ipynb` and `test_db.ipynb` notebooks to confirm connectivity to OTP and database containers. If you are experiencing errors with `test_otp.ipynb` notebook related to no transit data, you may need to adjust the OTP reference date defined in the file `backend/config/config.ini` (especially if you do this much later than in April 2022).
+5. Create a `backend/data` folder and store:
+   1. Vaccination dataset downloaded previously (named as `vaccinating_provider_locations.csv`)
+   2. [JUNAID TBD - where to store the data from Safegraph?]
 6. Run the following notebooks in the following order:
-   1. [TBD]
-   2. [TBD]
-   3. [TBD]
-   4. [TBD]
-   5. [TBD]
-   6. [TBD]
-   7. [TBD]
+   1. `backend/src/data_processing/cities/01. City info population.ipynb` (populates city boundaries and h3 grid)
+   2. `backend/src/data_processing/pois/01_vaccination_centers.ipynb` (populates vaccination center data)
+   3. `backend/src/data_processing/pois/02_osm_data.ipynb` (uses OSM Overpass API to retrieve other POI locations)
+   4. [TBD - Demographics]
+   5. `backend/src/data_processing/sql/01. pois_h3_demographics.ipynb` (creates SQL functions and pre-computed tables)
+   6. `backend/src/data_processing/sql/02. catchments.ipynb` (creates SQL functions and pre-computed tables)
+   7. `backend/src/data_processing/sql/03. 2FSCA - step1.ipynb` (creates SQL functions and pre-computed tables)
+   8. `backend/src/data_processing/pois/03_isochrones.ipynb` (generates catchment areas using OTP server; make sure its container is running). If you prefer, you can also use `backend/src/data_processing/pois/03_isochrones_runner.py` that can be run as a script instead. Isochrone generation may take up to a few hours.
+   9. `backend/src/data_processing/sql/04. 2FSCA - step2.ipynb` (creates further precomputed tables and runs consistency checks)
+   10. `backend/src/data_processing/sql/05. adjustment_stats.ipynb` (SQL function definition and tests)
+   11. `backend/src/data_processing/sql/06. city_stats.ipynb` (SQL function definition and tests)
+
+You're done!
 
 ## Execution
 
