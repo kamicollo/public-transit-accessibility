@@ -53,7 +53,7 @@ Then:
    1. Vaccination dataset downloaded previously (named as `vaccinating_provider_locations.csv`)
    2. [JUNAID TBD - where to store the data from Safegraph?]
 6. Run the following notebooks in the following order:
-   1. `backend/src/data_processing/cities/01. City info population.ipynb` (populates city boundaries and h3 grid)
+   1. `backend/src/data_processing/cities/01. City info population.ipynb` (populates city boundaries and H3 grid)
    2. `backend/src/data_processing/pois/01_vaccination_centers.ipynb` (populates vaccination center data)
    3. `backend/src/data_processing/pois/02_osm_data.ipynb` (uses OSM Overpass API to retrieve other POI locations)
    4. [TBD - Demographics]
