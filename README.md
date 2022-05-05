@@ -2,7 +2,7 @@
 
 ## Description
 
-This README describes the steps required to reproduce and run the interactive visualization tool and associated analysis focused on understanding the ease and equity of point of interest accessibility via public transit in five major US cities. This tool was developed as a course project in Georgia Tech's CSE6242 class Data and Visual Analytics. At the time this README was published, the tool is accessible for demo purposes at http://20.231.46.77/.
+This README describes the steps required to reproduce and run the interactive visualization tool and associated analysis focused on understanding the ease and equity of point of interest accessibility via public transit in five major US cities. This tool was developed as a course project in Georgia Tech's CSE6242 class Data and Visual Analytics. At the time this README was published, the tool is accessible for demo purposes at https://app.transitworks.us/
 
 In order to reproduce and run the tool, several components are required. To make it easier, most of them are packaged in Docker container environments. We recommend at least 16 GB RAM and 30GB disk space on the machine running the tool.
 
